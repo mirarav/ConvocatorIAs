@@ -21,12 +21,12 @@ Este proyecto desarrolla un sistema multiagente inteligente para la identificaci
 
 ## Organismos
 
-Actualmente el sistema soporta convocatorias de:
+Actualmente el sistema soporta (*) convocatorias de:
 
 | Organismo             | Enlace        |
 | --------------------- | -------------:|
 | ADER                  | [ADER](https://www.ader.es/ayudas/ayudas-por-areas/i-d/) |
-| CDTO                  | [CDTI](https://www.cdti.es/matriz-de-ayudas) |
+| CDTI                  | [CDTI](https://www.cdti.es/matriz-de-ayudas) |
 | Comunidad de Madrid   | [Comunidad de Madrid](https://sede.comunidad.madrid/investigacion-tecnologia/investigacion-desarrollo-e-innovacion-idi) |
 | TRADE                 | [TRADE](https://www.andaluciatrade.es/financiacion-empresarial/incentivos-para-las-empresas/) |
 
@@ -145,7 +145,7 @@ El sistema se compone de los siguientes archivos:
 
 * `rastreador/`: Extracción y validación de URLs y documentos
 * `fragmentador/`: Procesamiento y vectorización de contenido
-* `lLM/`: Completado de información con modelos de lenguaje
+* `llm/`: Completado de información con modelos de lenguaje
 * `orquestador/`: Interfaz de usuario y coordinación
 
 2. Núcleo
@@ -160,7 +160,7 @@ El sistema se compone de los siguientes archivos:
 
 ## Licencia
 
-Este proyecto se distribuye bajo la licencia MIT. Consulta `LICENSE` para más información.
+Este proyecto se distribuye bajo la licencia Apache License 2.0. Consulta `LICENSE` para más información.
 
 ------
 
