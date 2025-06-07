@@ -1,0 +1,29 @@
+# Archivos a ignorar al construir la imagen
+
+# Control de versiones
+.git
+.gitignore
+
+# Entornos de desarrollo
+.vscode
+
+# Cache de Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Logs y bases de datos locales
+*.log
+*.sqlite
+*.db
+
+# Archivo de entorno
+.env
+
+# Archivos de documentación y licencia
+README.md
+LICENSE
+
+# Dockerfile alternativos
+Dockerfile.dev

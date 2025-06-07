@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    container_name: app
+    restart: unless-stopped # Reinicia el contenedor a menos que se detenga manualmente
+    volumes:
+      - ./.env:/app/.env # Monta el archivo .env en el contenedor
+    env_file:
+      - .env # Carga las variables de entorno desde el archivo .env
+    environment:
+      - PYTHONUNBUFFERED=1 # Evita el buffering de salida de Python
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_PORT=${POSTGRES_PORT}
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+      - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
+      - AZURE_OPENAI_DEPLOYMENT_NAME=${AZURE_OPENAI_DEPLOYMENT_NAME}
+    stdin_open: true # Permite la entrada estándar al contenedor (obligatorio para usar el modo interactivo)
+    tty: true # Permite la asignación de un pseudo-terminal al contenedor (obligatorio para usar el modo interactivo)
+    depends_on:
+      db:
+        condition: service_healthy # Espera a que la base de datos esté lista
+
+  db:
+    image: ankane/pgvector:latest # Imagen de PostgreSQL con pgvector
+    container_name: db
+    restart: unless-stopped # Reinicia el contenedor a menos que se detenga manualmente
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Monta el volumen de datos de PostgreSQL
+      - ./nucleo/base_datos/esquema.sql:/docker-entrypoint-initdb.d/esquema.sql  # Añadido script de inicialización
+    # Verifica la salud del contenedor de PostgreSQL (obligatorio para que arranque el contenedor de la app)
+    healthcheck: 
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data: # Volumen para almacenar los datos de PostgreSQL

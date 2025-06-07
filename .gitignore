@@ -1,0 +1,12 @@
+# Archivos a ignorar al construir el repositorio
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Logs y bases de datos locales
+*.sqlite
+*.db
+
+# Archivo de entorno
+.env
